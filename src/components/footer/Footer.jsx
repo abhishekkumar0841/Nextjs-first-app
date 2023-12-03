@@ -1,10 +1,11 @@
 import React from 'react'
+import styles from './footer.module.css'
 
 const Footer = () => {
   return (
-    <div>
+    <div className={styles.container}>
         <div>@2023 abhishekkumar. All rights reserved!</div>
-        <div></div>
+        <div>icons</div>
     </div>
   )
 }
