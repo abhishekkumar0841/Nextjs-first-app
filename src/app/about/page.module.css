@@ -1,3 +1,39 @@
-.container{
-    background: gray;
+.container {
+  /* background: gray; */
+  display: flex;
+  flex-direction: column;
+}
+
+.imgContainer {
+  width: 100%;
+  height: 300px;
+  position: relative;
+}
+
+.imgText {
+  position: absolute;
+  bottom: 20px;
+  border-radius: 10px;
+  left: 50px;
+  background: #52c28b;
+  color: white;
+  padding: 10px 50px;
+}
+
+.img {
+  object-fit: cover;
+}
+
+.textContainer {
+  display: flex;
+  align-items: center;
+  gap: 100px;
+}
+
+.item {
+  flex: 1;
+  display: flex;
+  margin-top: 10px;
+  flex-direction: column;
+  gap: 30px;
 }
