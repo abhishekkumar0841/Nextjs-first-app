@@ -3,26 +3,45 @@ import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
 
-const Blog = () => {
+const fetchData = async () => {
+  const res = await fetch(`http://localhost:3000/api/posts`, {
+    cache: "no-store",
+  });
+  if (!res.ok) {
+    // throw new Error("Failed to fetch data!");
+    console.log("Failed to fetch data!");
+    return null
+  }
+
+  return res.json();
+};
+
+const Blog = async () => {
+  const data = await fetchData();
+  console.log('BLOG DATA--', data);
   return (
     <div className={styles.mainContainer}>
-      <Link href={"blog/test"} className={styles.container}>
-        <div className={styles.container}>
-          <Image
-            className={styles.container}
-            src={
-              "https://th.bing.com/th/id/OIP.a5YOm_1N-oe-O025Jw4PTQHaE8?rs=1&pid=ImgDetMain"
-            }
-            alt="blog image"
-            width={400}
-            height={250}
-          />
-        </div>
-        <div className={styles.content}>
-          <h1 className={styles.title}>Test</h1>
-          <p className={styles.desc}>Desc</p>
-        </div>
-      </Link>
+      {data?.map((item) => (
+        <Link
+          key={item?._id}
+          href={`blog/${item?._id}`}
+          className={styles.container}
+        >
+          <div className={styles.container}>
+            <Image
+              className={styles.container}
+              src={item?.image}
+              alt="blog image"
+              width={400}
+              height={250}
+            />
+          </div>
+          <div className={styles.content}>
+            <h1 className={styles.title}>{item?.title}</h1>
+            <p className={styles.desc}>{item?.desc}</p>
+          </div>
+        </Link>
+      ))}
     </div>
   );
 };

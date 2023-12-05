@@ -1,63 +1,52 @@
 import React from "react";
 import styles from "./page.module.css";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
-const BlogPost = () => {
+const fetchData = async (id) => {
+  const res = await fetch(`http://localhost:3000/api/posts/${id}`, {
+    cache: "no-store",
+  });
+  if (!res.ok) {
+    return notFound();
+  }
+
+  return res.json();
+};
+
+const BlogPost = async ({ params }) => {
+  const post = await fetchData(params.id);
+  console.log("Params id:" + params.id);
   return (
     <div className={styles.container}>
       <div className={styles.upper}>
         <div className={styles.left}>
-          <h1 className="title">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-          </h1>
-          <p className="desc">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ea,
-            aspernatur rerum consequuntur blanditiis numquam molestias illum
-            deleniti, tempora, reiciendis voluptate perspiciatis! Ad pariatur
-            aspernatur, cupiditate amet molestias minus dolore facilis!
-          </p>
+          <h1 className={styles.title}>{post?.title}</h1>
+          <p className={styles.desc}>{post?.body}</p>
           <div className={styles.userDetails}>
-            <Image src={'https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-1024.png'} height={30} width={30} />
-            <p className={styles.uName}>user name</p>
+            <Image
+              src={
+                "https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-1024.png"
+              }
+              height={30}
+              width={30}
+              alt="User"
+            />
+            <p className={styles.uName}>{post?.username}</p>
           </div>
         </div>
         <div className={styles.right}>
-          <Image className={styles.blogImg}
-            src={
-              "https://th.bing.com/th/id/OIP.a5YOm_1N-oe-O025Jw4PTQHaE8?rs=1&pid=ImgDetMain"
-            }
+          <Image
+            className={styles.blogImg}
+            src={post?.image}
             fill={true}
+            alt="Blog"
           />
         </div>
       </div>
 
       <div className={styles.lower}>
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Delectus
-          explicabo ipsam facilis. Eligendi sunt porro quasi reprehenderit vero
-          iste ex natus ab dicta autem, rerum nisi maiores et odit tenetur
-          consequuntur repellat inventore. Nihil dolorum, beatae provident vero
-          nisi, omnis vitae quidem magnam laborum corporis voluptate in cum odit
-          quas?
-        </p>
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquid
-          totam dolor, molestiae harum, nobis quasi eum illum libero maiores
-          odio alias rem quidem. Quae ea sapiente natus suscipit maxime sunt
-          ducimus facilis, temporibus hic rem velit unde, necessitatibus culpa.
-          Animi ullam, quam accusantium quas adipisci reprehenderit cupiditate
-          ipsam saepe nulla totam provident perspiciatis voluptatum quis ducimus
-          sequi, hic fugit?
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
-          cum quidem sequi aut dolores facilis ad tempore eaque debitis
-          voluptatum veniam assumenda aliquam delectus aperiam quas unde,
-          veritatis voluptates repellat necessitatibus expedita, dolor nemo illo
-          eligendi voluptas! Earum, corrupti? Beatae accusamus eum repellat ipsa
-          fuga? Voluptatum delectus quaerat pariatur et quasi quas excepturi?
-          Sequi, porro.
-        </p>
+        {post?.content}
       </div>
     </div>
   );

@@ -1,3 +1,9 @@
+.mainContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
 .container{
     display: flex;
     gap: 100px;
