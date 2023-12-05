@@ -14,6 +14,14 @@ const fetchData = async (id) => {
   return res.json();
 };
 
+export async function generateMetadata({ params }) {
+  const post = await fetchData(params.id)
+  return {
+    title: post.title,
+    description: post.desc
+  };
+}
+
 const BlogPost = async ({ params }) => {
   const post = await fetchData(params.id);
   console.log("Params id:" + params.id);
@@ -22,7 +30,7 @@ const BlogPost = async ({ params }) => {
       <div className={styles.upper}>
         <div className={styles.left}>
           <h1 className={styles.title}>{post?.title}</h1>
-          <p className={styles.desc}>{post?.body}</p>
+          <p className={styles.desc}>{post?.desc}</p>
           <div className={styles.userDetails}>
             <Image
               src={
@@ -45,9 +53,7 @@ const BlogPost = async ({ params }) => {
         </div>
       </div>
 
-      <div className={styles.lower}>
-        {post?.content}
-      </div>
+      <div className={styles.lower}>{post?.content}</div>
     </div>
   );
 };
