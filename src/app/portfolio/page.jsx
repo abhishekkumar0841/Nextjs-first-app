@@ -3,6 +3,11 @@ import styles from "./page.module.css";
 import Image from "next/image";
 import Link from "next/link";
 
+export const metadata = {
+  title: "Ak Portfolio",
+  description: "Ak Portfolio Generated",
+};
+
 const Portfolio = () => {
   return (
     <div className={styles.container}>

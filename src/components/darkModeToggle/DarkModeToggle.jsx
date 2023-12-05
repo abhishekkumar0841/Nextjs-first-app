@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import styles from "./DarkModeToggle.module.css";
 import { BsSun } from "react-icons/bs";
 import { BsMoon } from "react-icons/bs";
-import { ThemeContext } from "../../../context/ThemeContext";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const DarkModeToggle = () => {
   const { toggleMode, mode } = useContext(ThemeContext);

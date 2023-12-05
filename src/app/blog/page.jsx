@@ -16,9 +16,13 @@ const fetchData = async () => {
   return res.json();
 };
 
+export const metadata = {
+  title: "Ak Posts Section",
+  description: "Generated Ak Posts Section",
+};
+
 const Blog = async () => {
   const data = await fetchData();
-  console.log('BLOG DATA--', data);
   return (
     <div className={styles.mainContainer}>
       {data?.map((item) => (
